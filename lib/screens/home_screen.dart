@@ -1,5 +1,6 @@
 import 'package:catalogmovie/screens/search_history_screen.dart';
 import 'package:catalogmovie/screens/watched_screen.dart';
+import 'package:catalogmovie/screens/watchlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogmovie/widgets/menu_button.dart';
 
@@ -55,14 +56,25 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
               SizedBox(height: 5,),
-              MenuButton(icon: Icons.watch_later, text: "Assistir depois", onPressed:  () {
+              MenuButton(icon: Icons.schedule, text: "Assistir depois", onPressed:  () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const WatchedScreen()),
                 );
               },),
               SizedBox(height: 5,),
-              MenuButton(icon: Icons., text: text, onPressed: onPressed)
+              MenuButton(icon: Icons.thumb_up_off_alt_outlined, text: "Já assistidos", onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WatchlistScreen()),
+                );
+              }),
+              MenuButton(icon: Icons.grade_outlined, text: "Favoritos", onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WatchlistScreen()),
+                );
+              } )
             ],
           ),
         ),
