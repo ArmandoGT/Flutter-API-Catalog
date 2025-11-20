@@ -1,12 +1,56 @@
+import 'package:catalogmovie/screens/about_us_screen.dart';
+import 'package:catalogmovie/screens/details_screen.dart';
+import 'package:catalogmovie/screens/favorites_screen.dart';
 import 'package:catalogmovie/screens/search_history_screen.dart';
 import 'package:catalogmovie/screens/watched_screen.dart';
 import 'package:catalogmovie/screens/watchlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogmovie/widgets/menu_button.dart';
+import 'package:catalogmovie/services/tmdb_service.dart';
+import 'package:catalogmovie/models/movie.dart';
 
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  final TmdbService _tmdbService = TmdbService();
+
+  List<Movie> _searchResults = [];
+  bool _isLoading = false;
+  String _errorMessage = '';
+
+  void _searchMovies(String query) async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = '';
+    });
+
+    try {
+      final results = await _tmdbService.searchMovies(query);
+      setState(() {
+        _searchResults = results;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +60,13 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 24),
-                child: Image.asset('images/logo.png', height: 100,),
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 24),
+                  child: Image.asset('images/logo.png', height: 100,),
+                ),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -32,6 +79,18 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 child: TextField(
+                  controller: _searchController,
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      setState(() {
+                        _searchResults = [];
+                        _errorMessage = '';
+                      });
+                    }
+                  },
+                  onSubmitted: (value) {
+                    if (value.isNotEmpty) { _searchMovies(value);}
+                  },
                   decoration: InputDecoration(
                     hintText: 'Procure por seu filme/série',
                     prefixIcon: Icon(Icons.search),
@@ -44,6 +103,28 @@ class HomeScreen extends StatelessWidget {
                   ),
                 )
               ),
+              if (_searchResults.isNotEmpty || _isLoading)
+              Expanded(
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _errorMessage.isNotEmpty
+                    ? Center(child: Text(_errorMessage, style: const TextStyle(color: Colors.red)))
+                    : ListView.builder(
+                  itemCount: _searchResults.length,
+                  itemBuilder: (context, index) {
+                    final movie = _searchResults[index];
+                    return ListTile(
+                      leading: movie.posterPath.isNotEmpty
+                          ? Image.network('https://image.tmdb.org/t/p/w92${movie.posterPath}')
+                          : null,
+                      title: Text(movie.title, style: const TextStyle(color: Colors.white)),
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(movieId: movie.id)));
+                      },
+                    );
+                  },
+                ),
+              ),
               SizedBox(height: 15,),
               MenuButton(
                 icon: Icons.history,
@@ -55,26 +136,36 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(height: 5,),
+              SizedBox(height: 7,),
               MenuButton(icon: Icons.schedule, text: "Assistir depois", onPressed:  () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const WatchedScreen()),
                 );
               },),
-              SizedBox(height: 5,),
+              SizedBox(height: 7,),
               MenuButton(icon: Icons.thumb_up_off_alt_outlined, text: "Já assistidos", onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const WatchlistScreen()),
                 );
               }),
+              SizedBox(height: 7,),
               MenuButton(icon: Icons.grade_outlined, text: "Favoritos", onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const WatchlistScreen()),
+                  MaterialPageRoute(builder: (context) => const FavoritesScreen()),
                 );
-              } )
+              } ),
+              SizedBox(height: 100,),
+              Center(
+                child: MenuButton(icon: Icons.help_outline, text: "Sobre Nós", onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AboutUsScreen()),
+                  );
+                } ),
+              )
             ],
           ),
         ),
