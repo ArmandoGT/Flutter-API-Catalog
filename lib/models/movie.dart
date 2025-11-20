@@ -5,6 +5,8 @@ class Movie {
   final String overview;
   final List<String> genres;
   final int runtime;
+  final List<ProductionCompany> productionCompanies;
+
 
   Movie({
     required this.id,
@@ -12,20 +14,28 @@ class Movie {
     required this.posterPath,
     required this.overview,
     required this.genres,
-    required this.runtime
+    required this.runtime,
+    required this.productionCompanies,
+
   });
 
-  // Factory para criar Movie a partir de JSON da API TMDb
   factory Movie.fromJson(Map<String, dynamic> json) {
     List<String> genresList = [];
 
-    // Se 'genres' está presente e é uma lista, extrai só os nomes
     if (json['genres'] != null && json['genres'] is List) {
       genresList = (json['genres'] as List)
           .map((g) => (g['name'] ?? '').toString())
           .where((name) => name.isNotEmpty)
           .toList();
     }
+
+    List<ProductionCompany> companiesList = [];
+    if (json['production_companies'] != null && json['production_companies'] is List) {
+      companiesList = (json['production_companies'] as List)
+          .map((c) => ProductionCompany.fromJson(c))
+          .toList();
+    }
+
 
     return Movie(
       id: json['id'] ?? 0,
@@ -34,6 +44,7 @@ class Movie {
       overview: json['overview'] ?? 'Descrição não disponível',
       genres: genresList,
       runtime: json['runtime'] ?? 0,
+      productionCompanies: companiesList,
     );
   }
 
@@ -51,5 +62,27 @@ class Movie {
     final minutes = runtime % 60;
     return 'Duração: ${hours}h ${minutes}m';
   }
+}
 
+class ProductionCompany {
+  final int id;
+  final String name;
+  final String? logoPath;
+  final String originCountry;
+
+  ProductionCompany({
+    required this.id,
+    required this.name,
+    this.logoPath,
+    required this.originCountry,
+  });
+
+  factory ProductionCompany.fromJson(Map<String, dynamic> json) {
+    return ProductionCompany(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      logoPath: json['logo_path'],
+      originCountry: json['origin_country'] ?? '',
+    );
+  }
 }

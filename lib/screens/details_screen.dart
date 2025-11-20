@@ -46,10 +46,37 @@ class DetailsScreen extends StatelessWidget {
                   Text(movie.title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
                   Text(movie.formattedGenres, style: const TextStyle(fontSize: 16, color: Colors.white)),
                   Text(movie.formattedRuntime, style: const TextStyle(fontSize: 16, color: Colors.white)),
+                  const SizedBox(height: 5),
                   Text(movie.overview, style: const TextStyle(fontSize: 16, color: Colors.white)),
+                  const SizedBox(height: 16),
+                  Center(child: Text('Produtoras:', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white))),
+                  if (movie.productionCompanies.isEmpty)
+                    const Text('Nenhuma produtora encontrada', style: TextStyle(color: Colors.white)),
+                  ...movie.productionCompanies.map((company) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (company.logoPath != null)
+                            Image.network(
+                              'https://image.tmdb.org/t/p/w45${company.logoPath}',
+                              width: 80,
+                              height: 30,
+                              fit: BoxFit.contain,
+                            ),
+                          if (company.logoPath != null) const SizedBox(width: 8),
+                          Text('${company.name} (${company.originCountry})',
+                    style: const TextStyle(color: Colors.white),),
+                        ],
+                      ),
+                    );
+                  })
                 ],
               ),
             );
+
           } else {
             return const SizedBox.shrink();
           }
