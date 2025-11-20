@@ -3,14 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../models/movie.dart';
 import '../services/api_config.dart';
+import '../widgets/details_buttons.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   final int movieId;
 
   const DetailsScreen({super.key, required this.movieId});
 
+  @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
   Future<Movie> fetchMovieDetails() async {
-    final url = Uri.parse('${ApiConfig.baseUrl}/movie/$movieId?api_key=${ApiConfig.apiKey}&language=pt-BR');
+    final url = Uri.parse('${ApiConfig.baseUrl}/movie/${widget.movieId}?api_key=${ApiConfig.apiKey}&language=pt-BR');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -37,8 +43,10 @@ class DetailsScreen extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,)
           ),
-        ),),
+        ),), // Fim da App Bar
+
       backgroundColor: const Color(0xFF0d253f),
+
       body: FutureBuilder<Movie>(
         future: fetchMovieDetails(),
         builder: (context, snapshot) {
@@ -52,17 +60,30 @@ class DetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (movie.posterPath.isNotEmpty)
+                children: [ //Botões Pendente, Assistido e Favoritar
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(child: WatchLaterButton()),
+                      const SizedBox(width: 5),
+                      Expanded(child: WatchedButton()),
+                      const SizedBox(width: 5),
+                      Expanded(child: FavoriteButton()),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16), // Espaço antes do pôster
+
+                  if (movie.posterPath.isNotEmpty) // Pôster
                     Image.network('https://image.tmdb.org/t/p/w500${movie.posterPath}'),
                   const SizedBox(height: 16),
-                  Text(movie.title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
-                  Text(movie.formattedGenres, style: const TextStyle(fontSize: 16, color: Colors.white)),
-                  Text(movie.formattedRuntime, style: const TextStyle(fontSize: 16, color: Colors.white)),
+                  Text(movie.title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)), // Título
+                  Text(movie.formattedGenres, style: const TextStyle(fontSize: 16, color: Colors.white)), // Gênero do filme
+                  Text(movie.formattedRuntime, style: const TextStyle(fontSize: 16, color: Colors.white)), // Duração
                   const SizedBox(height: 5),
-                  Text(movie.overview, style: const TextStyle(fontSize: 16, color: Colors.white)),
+                  Text(movie.overview, style: const TextStyle(fontSize: 16, color: Colors.white)), // Sinopse
                   const SizedBox(height: 16),
-                  Center(child: Text('Produtoras:', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white))),
+                  Center(child: Text('Produtoras:', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white))), // Produtoras
                   if (movie.productionCompanies.isEmpty)
                     const Text('Nenhuma produtora encontrada', style: TextStyle(color: Colors.white)),
                   ...movie.productionCompanies.map((company) {
@@ -85,7 +106,7 @@ class DetailsScreen extends StatelessWidget {
                         ],
                       ),
                     );
-                  })
+                  }) // FimProdutoras
                 ],
               ),
             );
