@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:catalogmovie/widgets/menu_button.dart';
 import 'package:catalogmovie/services/tmdb_service.dart';
 import 'package:catalogmovie/models/movie.dart';
+import 'package:catalogmovie/services/list_storage.dart';
+
 
 // Telas
 import 'package:catalogmovie/screens/details_screen.dart';
@@ -23,12 +25,19 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   final TmdbService _tmdbService = TmdbService();
 
+
   List<Movie> _searchResults = [];
   bool _isLoading = false;
   String _errorMessage = '';
 
   // --- Buscar filmes ---
   void _searchMovies(String query) async {
+    // Para não salvar buscas vazias
+    if (query.trim().isEmpty) return;
+
+    // Salva no histórico antes de buscar
+    await ListStorage.addSearchHistory(query.trim());
+
     setState(() {
       _isLoading = true;
       _errorMessage = '';
@@ -161,13 +170,18 @@ class _HomeScreenState extends State<HomeScreen> {
               MenuButton(
                 icon: Icons.history,
                 text: "Histórico de Pesquisa",
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async {
+                  final result = await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const SearchHistoryScreen(),
                     ),
                   );
+
+                  if (result != null && result is String) {
+                    _searchController.text = result;
+                    _searchMovies(result);
+                  }
                 },
               ),
 
@@ -205,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 7),
 
-              // MENU: Favoritos
+              // MENU: Favoritos → FavoritesScreen
               MenuButton(
                 icon: Icons.grade_outlined,
                 text: "Favoritos",

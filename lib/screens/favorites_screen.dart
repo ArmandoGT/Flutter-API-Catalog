@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/list_storage.dart';
 import '../models/movie.dart';
 import '../services/tmdb_service.dart';
+import 'details_screen.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -20,7 +21,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
   Future<List<Movie>> _getFavoriteMovies() async {
     final ids = await ListStorage.getFavorites();
-    // Busca detalhes de todos os filmes pelo ID (exemplo usando sua TmdbService)
+    // Busca detalhes de todos os filmes pelo ID
     return Future.wait(
         ids.map((id) => TmdbService().fetchMovieDetails(id))
     );
@@ -30,8 +31,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(onPressed: () {Navigator.pop(context);}, icon: Icon(Icons.arrow_back_ios_rounded, color: Colors.white,)),
         title: const Text('Favoritos'),
-      ),
+        titleTextStyle: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(colors:[
+                Color(0xFF01b4e4),
+                Color(0xFF90cea1),
+              ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,)
+          ),
+        ),),
       body: FutureBuilder<List<Movie>>(
         future: _favoriteMovies,
         builder: (context, snapshot) {
@@ -53,7 +65,17 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 title: Text(movie.title),
                 subtitle: Text(movie.formattedGenres),
                 onTap: () {
-                  // Navegue para tela de detalhes, se desejar
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailsScreen(movieId: movie.id),
+                    ),
+                  ).then((_) {
+
+                    setState(() {
+                      _favoriteMovies = _getFavoriteMovies();
+                    });
+                  });
                 },
               );
             },
