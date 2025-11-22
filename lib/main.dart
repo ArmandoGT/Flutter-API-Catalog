@@ -1,5 +1,8 @@
-import 'package:catalogmovie/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
+
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+GlobalKey<ScaffoldMessengerState>();
 
 void main() {
   runApp(const MyApp());
@@ -8,13 +11,32 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
+
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF0d253f),
+
+        snackBarTheme: const SnackBarThemeData(
+          backgroundColor: Color(0xFF01b4e4),
+          contentTextStyle: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+          behavior: SnackBarBehavior.floating,
+          elevation: 6,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+        ),
+      ),
+
       home: const HomeScreen(),
     );
   }
 }
-
