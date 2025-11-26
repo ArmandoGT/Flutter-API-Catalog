@@ -39,7 +39,7 @@ class AboutUsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Textos
+            // Texto
             const Text(
               "Good morning, good afternoon, and good evening!",
               style: TextStyle(
@@ -69,8 +69,9 @@ class AboutUsScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 40),
+            const SizedBox(height: 25),
 
+            // --- SEÇÃO INSTITUIÇÃO & TECNOLOGIA---
             const Text(
               "Instituição & Tecnologia",
               style: TextStyle(
@@ -107,12 +108,65 @@ class AboutUsScreen extends StatelessWidget {
                 ],
               ),
             ),
+
+            const SizedBox(height: 25),
+
+            // --- SEÇÃO DESENVOLVEDOR ---
+            const Text(
+              "Desenvolvedor",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 15),
+
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                children: [
+                  // Logo GT
+                  Container(
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: const DecorationImage(
+                        image: AssetImage('images/ByGT.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+
+                  // Git-Linkedin
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildContactRow(Icons.code, "github.com/ArmandoGT"),
+                        const SizedBox(height: 8),
+                        _buildContactRow(Icons.link, "linkedin.com/in/armandogt"),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 30),
           ],
         ),
       ),
     );
   }
 
+  // Widget-auxiliar logos simples
   Widget _buildLogoContainer({required Widget child, required String label}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -138,6 +192,26 @@ class AboutUsScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  // Widget-auxiliar para o Git-Linkedin
+  Widget _buildContactRow(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, color: const Color(0xFF01b4e4), size: 20),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 }
