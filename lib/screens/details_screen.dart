@@ -18,7 +18,7 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   late Future<Movie> _futureMovie;
 
-  // TODO para desenhar a lista de produtoras
+  // Lista de produtoras
   Widget _buildProductionCompanies(List<dynamic> companies) {
     if (companies.isEmpty) return const SizedBox.shrink();
 

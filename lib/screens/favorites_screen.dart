@@ -21,7 +21,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
   Future<List<Movie>> _getFavoriteMovies() async {
     final ids = await ListStorage.getFavorites();
-    // Busca detalhes de todos os filmes pelo ID
     return Future.wait(
         ids.map((id) => TmdbService().fetchMovieDetails(id))
     );

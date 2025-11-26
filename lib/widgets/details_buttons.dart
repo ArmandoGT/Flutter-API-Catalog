@@ -101,9 +101,7 @@ class FavoriteButton extends StatelessWidget {
   }
 }
 
-// Função auxiliar para mostrar a mensagem (SnackBar)
 void _showSnackBar(BuildContext context, bool wasActive, String listName) {
-  // Usa a chave global ou o Scaffold local se disponível
   ScaffoldMessenger.of(context).clearSnackBars();
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

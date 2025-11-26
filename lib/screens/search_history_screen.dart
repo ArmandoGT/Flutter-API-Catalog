@@ -38,7 +38,6 @@ class _SearchHistoryScreenState extends State<SearchHistoryScreen> {
         titleTextStyle: const TextStyle(
             color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
         actions: [
-          // Botão para limpar tudo
           IconButton(
             icon: const Icon(Icons.delete_sweep, color: Colors.white),
             onPressed: () async {
@@ -93,7 +92,7 @@ class _SearchHistoryScreenState extends State<SearchHistoryScreen> {
                   icon: const Icon(Icons.close, color: Colors.grey),
                   onPressed: () async {
                     await ListStorage.removeHistoryItem(query);
-                    _loadHistory(); // Recarrega a lista
+                    _loadHistory();
                   },
                 ),
                 onTap: () {

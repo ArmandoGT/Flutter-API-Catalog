@@ -20,7 +20,6 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
     _pendingMovies = _getPendingMovies();
   }
 
-  // Busca os IDs de 'pending' e carrega os detalhes
   Future<List<Movie>> _getPendingMovies() async {
     final ids = await ListStorage.getPending();
     return Future.wait(
@@ -86,7 +85,6 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
                       builder: (context) => DetailsScreen(movieId: movie.id),
                     ),
                   ).then((_) {
-                    // Recarrega a lista ao voltar
                     setState(() {
                       _pendingMovies = _getPendingMovies();
                     });

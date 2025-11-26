@@ -20,7 +20,6 @@ class _WatchedScreenState extends State<WatchedScreen> {
     _watchedMovies = _getWatchedMovies();
   }
 
-  // Busca os IDs de 'watched' e carrega os detalhes
   Future<List<Movie>> _getWatchedMovies() async {
     final ids = await ListStorage.getWatched();
     return Future.wait(
@@ -86,7 +85,6 @@ class _WatchedScreenState extends State<WatchedScreen> {
                       builder: (context) => DetailsScreen(movieId: movie.id),
                     ),
                   ).then((_) {
-                    // Recarrega a lista ao voltar
                     setState(() {
                       _watchedMovies = _getWatchedMovies();
                     });

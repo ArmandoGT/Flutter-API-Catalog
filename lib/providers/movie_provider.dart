@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import '../services/list_storage.dart';
 
 class MovieProvider with ChangeNotifier {
-  // Listas em memória para acesso rápido
+  // Listas
   Set<int> _favorites = {};
   Set<int> _watched = {};
   Set<int> _pending = {};
 
-  // Getters para acessar as listas
+  // Getters
   Set<int> get favorites => _favorites;
   Set<int> get watched => _watched;
   Set<int> get pending => _pending;
 
   MovieProvider() {
-    // Carrega os dados do ListStorage assim que o app abre
     loadData();
   }
 
@@ -21,7 +20,7 @@ class MovieProvider with ChangeNotifier {
     _favorites = await ListStorage.getFavorites();
     _watched = await ListStorage.getWatched();
     _pending = await ListStorage.getPending();
-    notifyListeners(); // Avisa todas as telas que os dados chegaram
+    notifyListeners();
   }
 
   // --- Lógica de Favoritos ---
@@ -35,7 +34,7 @@ class MovieProvider with ChangeNotifier {
       _favorites.add(id);
       await ListStorage.addFavorite(id);
     }
-    notifyListeners(); // Atualiza ícones e abas
+    notifyListeners();
   }
 
   // --- Lógica de Já Assistidos ---
@@ -52,7 +51,7 @@ class MovieProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // --- Lógica de Assistir Depois (Pendentes) ---
+  // --- Lógica de Assistir Depois (Pendente) ---
   bool isPending(int id) => _pending.contains(id);
 
   Future<void> togglePending(int id) async {

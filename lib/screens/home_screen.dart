@@ -32,10 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // --- Buscar filmes ---
   void _searchMovies(String query) async {
-    // Para não salvar buscas vazias
     if (query.trim().isEmpty) return;
 
-    // Salva no histórico antes de buscar
     await ListStorage.addSearchHistory(query.trim());
 
     setState(() {
@@ -149,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: const TextStyle(color: Colors.white),
                         ),
 
-                        // Ir para detalhes
+                        // Ir para Detalhes do Filme
                         onTap: () {
                           Navigator.push(
                             context,

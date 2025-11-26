@@ -4,7 +4,7 @@ import '../models/movie.dart';
 import 'api_config.dart';
 
 class TmdbService {
-  // Método já existente
+  // Para formar a ListView
   Future<List<Movie>> searchMovies(String query) async {
     final url = Uri.parse('${ApiConfig.baseUrl}/search/movie?api_key=${ApiConfig.apiKey}&language=pt-BR&query=$query');
     final response = await http.get(url);
@@ -17,7 +17,7 @@ class TmdbService {
     }
   }
 
-  // Novo método para buscar detalhes por ID
+  // Para formar a DetailsScreen
   Future<Movie> fetchMovieDetails(int movieId) async {
     final url = Uri.parse('${ApiConfig.baseUrl}/movie/$movieId?api_key=${ApiConfig.apiKey}&language=pt-BR');
     final response = await http.get(url);
