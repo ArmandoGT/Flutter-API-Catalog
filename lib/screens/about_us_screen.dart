@@ -120,6 +120,7 @@ class AboutUsScreen extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
+
             const SizedBox(height: 15),
 
             Container(
