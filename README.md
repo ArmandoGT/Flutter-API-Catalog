@@ -67,7 +67,7 @@ flutter run
 *Obs: Configure sua chave da API do TMDB em `lib/services/api_config_example.dart`, substitua 'Your-API-Key' pela a sua e retire "_example" do nome do arquivo.*
 
 
-### 📱 **Gerar APK (Instalação)**
+### ➭ **Gerar APK (Instalação)**
 
 Caso deseje gerar o arquivo de instalação otimizado para Android (Release):
 ```bash
