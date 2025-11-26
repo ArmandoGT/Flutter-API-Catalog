@@ -62,7 +62,7 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
           if (movies.isEmpty) {
             return const Center(
               child: Text(
-                'Sua lista está vazia',
+                'Nenhum filme pendente',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             );
