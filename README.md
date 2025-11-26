@@ -1,4 +1,9 @@
-# Catálogo de Filmes - Atividade Avaliativa
+# 🎬 **Catálogo de Filmes – Flutter**
+[![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter&logoColor=white)](https://flutter.dev/)
+[![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart&logoColor=white)](https://dart.dev/)
+[![TMDB API](https://img.shields.io/badge/API-TMDB-90cea1?logo=themoviedatabase&logoColor=white)](https://www.themoviedb.org/)
+[![Status](https://img.shields.io/badge/Status-Concluído-success)]()
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)]()
 
 ## 1. Descrição do Projeto
 
@@ -16,7 +21,7 @@ O projeto implementa conceitos fundamentais de desenvolvimento mobile, incluindo
 
 | Tela Inicial | Detalhes do Filme | Listas Pessoais |
 |:---:|:---:|:---:|
-| ![Tela Inicial](.png) | ![Detalhes](.png) | ![Favoritos](.png) |
+| ![Tela Inicial](caminho_para_print_home.png) | ![Detalhes](caminho_para_print_detalhes.png) | ![Favoritos](caminho_para_print_listas.png) |
 > *Figura 1: Fluxo principal da aplicação (Home, Detalhes e Listas).*
 
 ---
@@ -36,19 +41,19 @@ A aplicação consome dados da **The Movie Database (TMDB) API**.
 
 Para atender aos requisitos funcionais e não-funcionais, foram utilizados os seguintes pacotes externos:
 
-*   **`http`**
-    *   Responsável por realizar as requisições HTTP (GET) para a API do TMDB e lidar com as respostas JSON de forma assíncrona.
-*   **`provider`**
-    *   Utilizado para o gerenciamento de estado da aplicação. Ele permite que as listas de filmes (favoritos, assistidos, pendentes) sejam atualizadas reativamente entre as diferentes telas sem a necessidade de *prop drilling*.
-*   **`shared_preferences`**
-    *   Implementado para a persistência de dados local (armazenamento *key-value*). Garante que o histórico de busca e as listas do usuário sejam salvos no dispositivo e recuperados ao reiniciar o app.
-*   **`flutter_svg`**
-    *   Utilizado para renderização de arquivos de imagem vetorial (.svg), assegurando a qualidade visual de ícones e logotipos (ex: logo do TMDB na tela "Sobre Nós").
+*   **`http`**: Responsável por realizar as requisições HTTP (GET) para a API do TMDB e lidar com as respostas JSON de forma assíncrona.
+*   **`provider`**: Utilizado para o gerenciamento de estado da aplicação, permitindo que as listas de filmes sejam atualizadas reativamente entre as diferentes telas.
+*   **`shared_preferences`**: Implementado para a persistência de dados local, garantindo que o histórico de busca e as listas do usuário sejam salvos no dispositivo.
+*   **`flutter_svg`**: Utilizado para renderização de arquivos de imagem vetorial (.svg), assegurando a qualidade visual de ícones e logotipos.
 
 ---
 
-## 4. Instruções de Execução
+## **4. Instruções de Execução**
 
-Para executar este projeto em seu ambiente local, certifique-se de ter o [Flutter SDK](https://docs.flutter.dev/get-started/install) instalado e configurado.
+Certifique-se de ter o [Flutter SDK](https://docs.flutter.dev/get-started/install) instalado.
 
-### Passo 1: Clonar o repositório
+*Obs: Configure sua chave da API do TMDB em `lib/services/api_config_example.dart`, substitua 'Your-API-Key' pela sua chave API*
+
+---
+
+**Criado com dedicação 🧭 por [ArmandoGT](https://github.com/ArmandoGT)**
