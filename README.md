@@ -51,8 +51,14 @@ Para atender aos requisitos funcionais e não-funcionais, foram utilizados os se
 ## **4. Instruções de Execução**
 
 Certifique-se de ter o [Flutter SDK](https://docs.flutter.dev/get-started/install) instalado.
+```bash
+git clone https://github.com/ArmandoGT/Flutter-API-Catalog.git
+cd catalogmovie 
+flutter pub get 
+flutter run
+```
 
-*Obs: Configure sua chave da API do TMDB em `lib/services/api_config_example.dart`, substitua 'Your-API-Key' pela sua chave API*
+*Obs: Configure sua chave da API do TMDB em `lib/services/api_config_example.dart`, substitua 'Your-API-Key' pela a sua e retire "_example" do nome do arquivo.*
 
 ---
 

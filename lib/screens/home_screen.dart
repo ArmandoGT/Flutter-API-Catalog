@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                   },
                   decoration: InputDecoration(
-                    hintText: 'Procure por seu filme/série',
+                    hintText: 'Procure por seu filme',
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
