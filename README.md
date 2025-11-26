@@ -23,8 +23,12 @@ O projeto implementa conceitos fundamentais de desenvolvimento mobile, incluindo
 |:----------------------------------------------------------:|:---:|:------------------------------------------------------------:|
 | ![Tela Inicial](images/printscreen/Home_Screen_Print.jpeg) | ![Detalhes](images/printscreen/Details_Screen_Print.jpeg) | ![Favoritos](images/printscreen/Favorites_Screen_Print.jpeg) |
 > *Figura 1: Fluxo principal da aplicação (Home, Detalhes e Listas).*
-> *Figura 2: Detalhes sobre o filme, incluindo pôster, duração, gêneros do filme, sinopse e as produtoras registradas *
-> *Figura 3: Lista onde exibe os filmes que você selecionou como Favorito*
+
+> *Figura 2: Detalhes sobre o filme, incluindo pôster, duração, gêneros do filme, sinopse e as produtoras registradas.*
+
+> *Figura 3: Lista onde exibe os filmes que você selecionou como Favorito.*
+
+> *Testado em um Xiaomi Redmi Note 13 Pro.*
 
 ---
 
