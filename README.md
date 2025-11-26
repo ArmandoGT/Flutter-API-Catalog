@@ -19,10 +19,12 @@ O projeto implementa conceitos fundamentais de desenvolvimento mobile, incluindo
 
 ### Capturas de Tela
 
-| Tela Inicial | Detalhes do Filme | Listas Pessoais |
-|:---:|:---:|:---:|
-| ![Tela Inicial](caminho_para_print_home.png) | ![Detalhes](caminho_para_print_detalhes.png) | ![Favoritos](caminho_para_print_listas.png) |
+|                        Tela Inicial                        | Detalhes do Filme |                       Listas Pessoais                        |
+|:----------------------------------------------------------:|:---:|:------------------------------------------------------------:|
+| ![Tela Inicial](images/printscreen/Home_Screen_Print.jpeg) | ![Detalhes](images/printscreen/Details_Screen_Print.jpeg) | ![Favoritos](images/printscreen/Favorites_Screen_Print.jpeg) |
 > *Figura 1: Fluxo principal da aplicação (Home, Detalhes e Listas).*
+> *Figura 2: Detalhes sobre o filme, incluindo pôster, duração, gêneros do filme, sinopse e as produtoras registradas *
+> *Figura 3: Lista onde exibe os filmes que você selecionou como Favorito*
 
 ---
 
@@ -59,6 +61,17 @@ flutter run
 ```
 
 *Obs: Configure sua chave da API do TMDB em `lib/services/api_config_example.dart`, substitua 'Your-API-Key' pela a sua e retire "_example" do nome do arquivo.*
+
+
+### 📱 **Gerar APK (Instalação)**
+
+Caso deseje gerar o arquivo de instalação otimizado para Android (Release):
+```bash
+flutter build apk
+```
+Após o término do processo, o arquivo instalável (`app-release.apk`) estará localizado em:
+**`build/app/outputs/flutter-apk/app-release.apk`**
+
 
 ---
 
