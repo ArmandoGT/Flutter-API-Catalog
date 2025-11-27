@@ -28,7 +28,7 @@ O projeto implementa conceitos fundamentais de desenvolvimento mobile, incluindo
 
 > *Figura 3: Lista onde exibe os filmes que você selecionou como Favorito.*
 
-> *Testado em um Xiaomi Redmi Note 13 Pro.*
+> *Plataformas testadas: Android (Emulador: Pixel 4 API 36.0 / Dispositivo Físico: Xiaomi Redmi Note 13 Pro)*
 
 ---
 
