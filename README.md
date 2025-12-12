@@ -79,4 +79,4 @@ Após o término do processo, o arquivo instalável (`app-release.apk`) estará 
 
 ---
 
-**Criado com dedicação 🧭 por [ArmandoGT](https://github.com/ArmandoGT)**
+** 🧭 By [ArmandoGT](www.linkedin.com/in/armandogt)**
